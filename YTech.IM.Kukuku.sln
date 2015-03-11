@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTech.IM.Kukuku.Core", "app\YTech.IM.Kukuku.Core\YTech.IM.Kukuku.Core.csproj", "{649BF394-C514-4569-9BE5-92734D40A350}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YTech.IM.Kukuku.Enums", "app\YTech.IM.Kukuku.Enums\YTech.IM.Kukuku.Enums.csproj", "{E06743A2-9464-4671-B72A-BF26DFE1EE6A}"

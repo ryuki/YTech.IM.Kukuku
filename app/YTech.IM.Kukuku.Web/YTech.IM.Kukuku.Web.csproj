@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,8 +18,13 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation />
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -227,7 +233,6 @@
     <Content Include="Content\Images\home-icon.png" />
     <Content Include="Content\Images\hoverSkins.png" />
     <Content Include="Content\Images\l.gif" />
-    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\Mvc2Validation.png" />
     <Content Include="Content\Images\navigation-menu.png" />
@@ -237,7 +242,6 @@
     <Content Include="Content\Images\product.png" />
     <Content Include="Content\Images\r.gif" />
     <Content Include="Content\Images\remembermilk_orange.gif" />
-    <Content Include="Content\Images\sense logo.jpg" />
     <Content Include="Content\Images\settings.png" />
     <Content Include="Content\Images\sfheader.png" />
     <Content Include="Content\Images\shadow.png" />
@@ -439,8 +443,17 @@
   <ItemGroup>
     <Content Include="Views\Transaction\Report\RptDailyOmzet.rdlc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\PublishProfiles\kukuku - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\kukuku - Web Deploy.pubxml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
