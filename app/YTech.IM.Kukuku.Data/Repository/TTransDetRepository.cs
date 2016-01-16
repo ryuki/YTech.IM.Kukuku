@@ -144,5 +144,21 @@ namespace YTech.IM.Kukuku.Data.Repository
             q.SetDateTime("dateTo", dateTo.Value);
             return q.List<TTransDet>();
         }
+
+        public IList<TTransDet> GetListByRoomDateOut(EnumTransactionStatus TransStatus, DateTime? dateFrom, DateTime? dateTo)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"   select det
+                                from TTransDet as det, TTransRoom as troom
+                                    where det.TransId = troom.TransId  
+                                        and troom.RoomOutDate between :dateFrom and :dateTo 
+                                     ");
+
+            IQuery q = Session.CreateQuery(sql.ToString());
+            //q.SetString("TransStatus", TransStatus.ToString());
+            q.SetDateTime("dateFrom", dateFrom.Value);
+            q.SetDateTime("dateTo", dateTo.Value);
+            return q.List<TTransDet>();
+        }
     }
 }

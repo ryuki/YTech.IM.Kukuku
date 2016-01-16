@@ -43,8 +43,9 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
         private readonly ITTransRoomRepository _tTransRoomRepository;
         private readonly ITTransRepository _tTransRepository;
         private readonly ITShiftRepository _tShiftRepository;
+        private readonly IMCustomerRepository _mCustomerRepository;
 
-        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository, ITShiftRepository tShiftRepository)
+        public ReportController(ITJournalRepository tJournalRepository, ITJournalDetRepository tJournalDetRepository, IMCostCenterRepository mCostCenterRepository, IMAccountRepository mAccountRepository, ITRecAccountRepository tRecAccountRepository, ITRecPeriodRepository tRecPeriodRepository, IMBrandRepository mBrandRepository, IMSupplierRepository mSupplierRepository, IMWarehouseRepository mWarehouseRepository, IMItemRepository mItemRepository, ITStockCardRepository tStockCardRepository, ITStockItemRepository tStockItemRepository, ITTransDetRepository tTransDetRepository, ITTransRepository tTransRepository, ITTransRoomRepository tTransRoomRepository, ITShiftRepository tShiftRepository, IMCustomerRepository mCustomerRepository)
         {
             Check.Require(tJournalRepository != null, "tJournalRepository may not be null");
             Check.Require(tJournalDetRepository != null, "tJournalDetRepository may not be null");
@@ -62,6 +63,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
             Check.Require(tTransRepository != null, "tTransRepository may not be null");
             Check.Require(tTransRoomRepository != null, "tTransRoomRepository may not be null");
             Check.Require(tShiftRepository != null, "tShiftRepository may not be null");
+            Check.Require(mCustomerRepository != null, "tShiftRepository may not be null");
 
 
             this._tJournalRepository = tJournalRepository;
@@ -80,6 +82,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
             this._tTransRepository = tTransRepository;
             this._tTransRoomRepository = tTransRoomRepository;
             this._tShiftRepository = tShiftRepository;
+            this._mCustomerRepository = mCustomerRepository;
         }
 
         [Transaction]
@@ -149,6 +152,10 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
                     viewModel.ShowDateFrom = true;
                     viewModel.ShowDateTo = true;
                     break;
+                case EnumReports.RptCustomers:
+                    viewModel.ShowMonth = true;
+                    title = "Daftar Member";
+                    break;
             }
             ViewData["CurrentItem"] = title;
 
@@ -199,10 +206,11 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
                     repCol[2] = GetTransRoom(viewModel.TransId);
                     break;
                 case EnumReports.RptServiceOmzet:
-                    repCol = new ReportDataSource[2];
+                    repCol = new ReportDataSource[3];
                     TShift s = _tShiftRepository.GetByDateAndShiftNo(viewModel.DateFrom, viewModel.ShiftNo);
                     repCol[0] = GetShiftViewModel(s);
                     repCol[1] = GetServiceOmzet(s.ShiftDateFrom, s.ShiftDateTo);
+                    repCol[2] = GetTransDetByRoomDateOut(s.ShiftDateFrom, s.ShiftDateTo);
                     break;
                 case EnumReports.RptCommissionRecap:
                     repCol[0] = GetTransDetByDate(viewModel.DateFrom, viewModel.DateTo);
@@ -212,6 +220,9 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
                     break;
                 case EnumReports.RptDailyOmzet:
                     repCol[0] = GetServiceOmzet(viewModel.DateFrom, viewModel.DateTo.Value.AddDays(1));
+                    break;
+                case EnumReports.RptCustomers:
+                    repCol[0] = GetCustomers(viewModel.Month);
                     break;
             }
             Session["ReportData"] = repCol;
@@ -257,6 +268,72 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
             //Response.AddHeader("content-disposition", string.Format("attachment; filename={0}.{1}", reports.ToString(), fileNameExtension));
 
             //return File(renderedBytes, mimeType);
+        }
+
+        private ReportDataSource GetCustomers(string month)
+        {
+            IEnumerable<MCustomer> list = _mCustomerRepository.GetByMonthDOB(month);
+            var result = from cust in list
+                         select new CustomerDetail
+                         {
+                             CustomerDesc = cust.CustomerDesc,
+                             CustomerHealthProblem = cust.CustomerHealthProblem,
+                             CustomerJoinDate = cust.CustomerJoinDate,
+                             CustomerLastBuy = cust.CustomerLastBuy,
+                             CustomerMassageStrength = cust.CustomerMassageStrength,
+                             CustomerMaxCredit = cust.CustomerMaxCredit,
+                             CustomerProductDisc = cust.CustomerProductDisc,
+                             CustomerServiceDisc = cust.CustomerServiceDisc,
+                             CustomerStatus = cust.CustomerStatus,
+                             PersonFirstName = cust.PersonId.PersonFirstName,
+                             PersonDob = cust.PersonId.PersonDob,
+                             PersonPob = cust.PersonId.PersonPob,
+                             PersonGender = cust.PersonId.PersonGender,
+                             PersonPhone = cust.PersonId.PersonPhone,
+                             PersonMobile = cust.PersonId.PersonMobile,
+                             PersonEmail = cust.PersonId.PersonEmail,
+                             PersonReligion = cust.PersonId.PersonReligion,
+                             PersonRace = cust.PersonId.PersonRace,
+                             PersonIdCardType = cust.PersonId.PersonIdCardType,
+                             PersonIdCardNo = cust.PersonId.PersonIdCardNo,
+                             PersonDesc = cust.PersonId.PersonDesc,
+
+                             AddressLine1 = cust.AddressId.AddressLine1,
+                             AddressLine2 = cust.AddressId.AddressLine2,
+                             AddressLine3 = cust.AddressId.AddressLine3,
+                             AddressPhone = cust.AddressId.AddressPhone,
+                             AddressFax = cust.AddressId.AddressFax,
+                             AddressCity = cust.AddressId.AddressCity,
+                             AddressContact = cust.AddressId.AddressContact,
+                             AddressContactMobile = cust.AddressId.AddressContactMobile,
+                             AddressEmail = cust.AddressId.AddressEmail
+                         };
+
+            ReportDataSource reportDataSource = new ReportDataSource("CustomerDetail", result);
+            return reportDataSource;
+        }
+
+        private ReportDataSource GetTransDetByRoomDateOut(DateTime? dateFrom, DateTime? dateTo)
+        {
+            IList<TTransDet> dets = _tTransDetRepository.GetListByRoomDateOut(EnumTransactionStatus.Service, dateFrom, dateTo);
+
+            var list = from det in dets
+                       select new
+                       {
+                           EmployeeId = det.EmployeeId.Id,
+                           EmployeeName = det.EmployeeId.PersonId.PersonName,
+                           TransDetCommissionService = det.TransDetCommissionProduct.HasValue ? det.TransDetCommissionProduct : det.TransDetCommissionService,
+                           det.TransId.TransFactur,
+                           det.TransId.TransDate,
+                           PacketName = det.PacketId != null ? det.PacketId.PacketName : (det.ItemId != null ? det.ItemId.ItemName : null),
+                           TransDetDisc = det.PacketId != null ? det.TransId.TransDiscount : (det.ItemId != null ? det.TransDetDisc : null),
+                           det.TransDetQty,
+                           TransDetTotal = det.PacketId != null ? det.TransDetTotal : (det.ItemId != null ? det.TransDetQty * det.TransDetPrice : null)
+                       }
+            ;
+
+            ReportDataSource reportDataSource = new ReportDataSource("TransDetViewModel", list.ToList());
+            return reportDataSource;
         }
 
         private ReportDataSource GetTransDetByDate(DateTime? dateFrom, DateTime? dateTo)

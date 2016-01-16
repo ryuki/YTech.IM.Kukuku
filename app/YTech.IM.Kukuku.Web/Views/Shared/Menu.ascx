@@ -79,6 +79,7 @@
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptDailyOmzet), "Laporan Penjualan Harian")%>
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommissionRecap), "Laporan Rekap Komisi Terapis")%>
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCommission), "Laporan Komisi Terapis")%>
+        <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCustomers), "Daftar Member")%>
         <%--<%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockCard), "Kartu Stok")%>
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem), "Laporan Stok Per Gudang")%>--%>
         <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))

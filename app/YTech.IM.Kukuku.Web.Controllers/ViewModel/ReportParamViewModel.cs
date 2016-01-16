@@ -60,6 +60,21 @@ namespace YTech.IM.Kukuku.Web.Controllers.ViewModel
             }
             viewModel.ShiftNoList = new SelectList(arr, "Id", "Id");
 
+            arr = new ArrayList();
+            arr.Add(new { Id = 1, Name = "Januari" });
+            arr.Add(new { Id = 2, Name = "Februari" });
+            arr.Add(new { Id = 3, Name = "Maret" });
+            arr.Add(new { Id = 4, Name = "April" });
+            arr.Add(new { Id = 5, Name = "Mei" });
+            arr.Add(new { Id = 6, Name = "Juni" });
+            arr.Add(new { Id = 7, Name = "Juli" });
+            arr.Add(new { Id = 8, Name = "Agustus" });
+            arr.Add(new { Id = 9, Name = "September" });
+            arr.Add(new { Id = 10, Name = "Oktober" });
+            arr.Add(new { Id = 11, Name = "November" });
+            arr.Add(new { Id = 12, Name = "Desember" });
+            viewModel.MonthList = new SelectList(arr, "Id", "Name");
+
             viewModel.DateFrom = DateTime.Today;
             viewModel.DateTo = DateTime.Today;
             return viewModel;
@@ -78,6 +93,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.ViewModel
         public bool ShowRecPeriod { get; internal set; }
         public bool ShowItem { get; internal set; }
         public bool ShowShiftNo { get; internal set; }
+        public bool ShowMonth { get; internal set; }
 
         public DateTime? DateFrom { get; set; }
         public DateTime? DateTo { get; set; }
@@ -88,6 +104,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.ViewModel
         public string ItemId { get; set; }
         public string TransId { get; set; }
         public int? ShiftNo { get; set; }
+        public string Month { get; set; }
 
         public SelectList CostCenterList { get; internal set; }
         public SelectList WarehouseList { get; internal set; }
@@ -95,6 +112,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.ViewModel
         public SelectList RecPeriodList { get; internal set; }
         public SelectList ItemList { get; internal set; }
         public SelectList ShiftNoList { get; internal set; }
+        public SelectList MonthList { get; internal set; }
 
 
     }

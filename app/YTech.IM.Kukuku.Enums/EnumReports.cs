@@ -19,6 +19,7 @@ namespace YTech.IM.Kukuku.Enums
         RptServiceOmzet,
         RptCommissionRecap,
         RptCommission,
-        RptDailyOmzet
+        RptDailyOmzet,
+        RptCustomers
     }
 }

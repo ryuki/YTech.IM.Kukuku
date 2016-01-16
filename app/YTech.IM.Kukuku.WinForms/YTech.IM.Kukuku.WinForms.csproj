@@ -75,6 +75,11 @@
     <Content Include="RptServiceOmzet.rdlc" />
     <Content Include="RptStockCard.rdlc" />
     <Content Include="RptStockItem.rdlc" />
+    <EmbeddedResource Include="RptCustomers.rdlc" />
+    <None Include="Properties\DataSources\YTech.IM.Kukuku.Core.Master.MCustomer.datasource" />
+    <None Include="Properties\DataSources\YTech.IM.Kukuku.Core.Transaction.TTransDet.datasource" />
+    <None Include="Properties\DataSources\YTech.IM.Kukuku.Web.Controllers.Transaction.CustomerDetail.datasource" />
+    <None Include="Properties\DataSources\YTech.IM.Kukuku.Web.Controllers.ViewModel.Reports.TransDetViewModel.datasource" />
     <None Include="Properties\DataSources\YTech.IM.Sense.Core.Master.MAccount.datasource" />
     <None Include="Properties\DataSources\YTech.IM.Sense.Core.Master.MAccountRef.datasource" />
     <None Include="Properties\DataSources\YTech.IM.Sense.Core.Master.MBrand.datasource" />

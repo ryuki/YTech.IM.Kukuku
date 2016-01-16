@@ -19,5 +19,7 @@ namespace YTech.IM.Kukuku.Core.RepositoryInterfaces
         IList<TTransDet> GetListByTrans(TTrans trans);
 
         IList<TTransDet> GetListByDate(Enums.EnumTransactionStatus enumTransactionStatus, System.DateTime? dateFrom, System.DateTime? dateTo);
+
+        IList<TTransDet> GetListByRoomDateOut(Enums.EnumTransactionStatus enumTransactionStatus, System.DateTime? dateFrom, System.DateTime? dateTo);
     }
 }

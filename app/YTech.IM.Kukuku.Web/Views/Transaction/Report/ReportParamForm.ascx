@@ -105,6 +105,19 @@
         </td>
     </tr>
     <% } %>
+
+    <% if (ViewData.Model.ShowMonth)
+       {	%>
+    <tr>
+        <td>
+            <label for="Month">
+                Bulan :</label>
+        </td>
+        <td>
+            <%= Html.DropDownList("Month", Model.MonthList)%>
+        </td>
+    </tr>
+    <% } %>
     <tr>
         <td colspan="2" align="center">
             <button id="Save" type="submit" name="Save">

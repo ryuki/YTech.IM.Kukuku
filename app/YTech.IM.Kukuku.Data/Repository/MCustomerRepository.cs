@@ -74,6 +74,21 @@ namespace YTech.IM.Kukuku.Data.Repository
             return criteria;
         }
 
+        public IEnumerable<MCustomer> GetByMonthDOB(string month)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendLine(@"  select cust from MCustomer as cust
+                                    left join fetch cust.PersonId per
+                                    left join fetch cust.AddressId address ");
+            sql.AppendFormat(@" where month(per.PersonDob) = :month", month);
+
+            IQuery q = Session.CreateQuery(sql.ToString());
+            q.SetString("month", month);
+            IEnumerable<MCustomer> list = q.List<MCustomer>();
+            return list;
+        }
         #endregion
+
+
     }
 }
