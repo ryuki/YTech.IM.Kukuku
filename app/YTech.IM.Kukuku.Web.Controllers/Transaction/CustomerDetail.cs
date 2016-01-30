@@ -9,6 +9,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
     [Serializable]
     public class CustomerDetail 
     {
+        public virtual string CustomerId { get; set; }
         public virtual decimal? CustomerMaxCredit { get; set; }
         public virtual decimal? CustomerServiceDisc { get; set; }
         public virtual decimal? CustomerProductDisc { get; set; }

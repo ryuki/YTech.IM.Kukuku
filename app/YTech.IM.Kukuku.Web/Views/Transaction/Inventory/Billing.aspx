@@ -424,6 +424,9 @@
             $("#paymentCreditCard").autoNumeric();
             $("#paymentCreditCard").attr("style","text-align:right;");
             
+            $('#TransDetPrice').attr('readonly', true);
+            $('#TransDetTotal').attr('readonly', true);
+
             $("#dialog").dialog({
                 autoOpen: false
             });

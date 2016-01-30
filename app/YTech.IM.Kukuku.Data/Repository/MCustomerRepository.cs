@@ -80,7 +80,8 @@ namespace YTech.IM.Kukuku.Data.Repository
             sql.AppendLine(@"  select cust from MCustomer as cust
                                     left join fetch cust.PersonId per
                                     left join fetch cust.AddressId address ");
-            sql.AppendFormat(@" where month(per.PersonDob) = :month", month);
+            sql.AppendLine(@" where month(per.PersonDob) = :month");
+            sql.AppendLine(@" order by cust.Id ");
 
             IQuery q = Session.CreateQuery(sql.ToString());
             q.SetString("month", month);

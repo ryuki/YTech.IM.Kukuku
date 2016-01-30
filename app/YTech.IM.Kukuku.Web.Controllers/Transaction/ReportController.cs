@@ -276,6 +276,7 @@ namespace YTech.IM.Kukuku.Web.Controllers.Transaction
             var result = from cust in list
                          select new CustomerDetail
                          {
+                             CustomerId = cust.Id,
                              CustomerDesc = cust.CustomerDesc,
                              CustomerHealthProblem = cust.CustomerHealthProblem,
                              CustomerJoinDate = cust.CustomerJoinDate,
