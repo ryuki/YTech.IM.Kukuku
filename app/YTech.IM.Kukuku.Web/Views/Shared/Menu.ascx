@@ -8,7 +8,7 @@
     <% if (Request.IsAuthenticated)
        {
     %>
-    <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))
+    <% if (Membership.GetUser().UserName.ToLower().Equals("admin") || Membership.GetUser().UserName.ToLower().Equals("dewi"))
        { %>
     <h3>
         <a href="#">Data Pokok</a></h3>
@@ -47,29 +47,6 @@
         <%= Html.ActionLinkForAreas<InventoryController>(c => c.Sales(), "Penjualan")%>
         <%= Html.ActionLinkForAreas<InventoryController>(c => c.Billing(), "Billing")%>
     </div>
-    <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))
-       { %>
-    <%--<h3>
-        <a href="#">Pembukuan</a></h3>
-    <div class="child-menu-container">
-        <%= Html.ActionLinkForAreas<AccountingController>(c => c.GeneralLedger(), "General Ledger")%>
-        <%= Html.ActionLinkForAreas<AccountingController>(c => c.CashIn(), "Kas Masuk")%>
-        <%= Html.ActionLinkForAreas<AccountingController>(c => c.CashOut(), "Kas Keluar")%>>
-         Mutasi Kas
-                            Kasbon
-                            
-                            Pembayaran Hutang
-                            Pembayaran Gaji
-    </div--%>
-    <% } %>
-    <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))
-       { %>
-   <%-- <h3>
-        <a href="#">Absensi</a></h3>
-    <div class="child-menu-container">
-        <%= Html.ActionLinkForAreas<HRController>(c => c.Absent(), "Absen Karyawan")%>
-    </div>--%>
-    <% } %>
     <h3>
         <a href="#">Laporan</a></h3>
     <div class="child-menu-container">
@@ -82,13 +59,6 @@
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptCustomers), "Daftar Member")%>
         <%--<%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockCard), "Kartu Stok")%>
         <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptStockItem), "Laporan Stok Per Gudang")%>--%>
-        <% if (Membership.GetUser().UserName.ToLower().Equals("admin"))
-           { %>
-     <%--   <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptJournal), "Lap. Jurnal")%>
-        <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptNeraca), "Lap. Neraca")%>
-        <%= Html.ActionLinkForAreas<ReportController>(c => c.Report(EnumReports.RptLR), "Lap. Laba / Rugi")%>--%>
-    </div>
-    <% } %>
     <h3>
         <a href="#">Utiliti</a></h3>
     <div class="child-menu-container">
